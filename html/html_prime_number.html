@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prime Numbers</title>
+	<style>
+		body {
+		  background-color: #eee;
+		  font-family: 'Open Sans', sans-serif;
+		  color: #25291c;
+		}
+			div {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  flex-direction: column;
+	}
+
+	h1 {
+	  font-family: 36px;
+	  font-family: 'Fjalla One', sans-serif;
+	  margin-bottom: 50px;
+	}
+
+	input {
+	  background-color: #d4d4d4;
+	  border: 0;
+	  /*   border: 1px solid #efefef; */
+	  /*   border-radius: 25px; */
+	  font-family: 'Open Sans', sans-serif;
+	  transition: .3s;
+	  padding: 10px;
+	  text-align: center;
+	}
+
+	input[type="text"] {
+	  font-size: 16px;
+	  margin: 50px 25px 20px;
+	  padding: 10px;
+	}
+
+	input:focus {
+	  background-color: #b6b6b4
+	}
+
+	input[type="submit"]{
+	       background-color: #67B26F;
+	  color: #fff
+	}
+
+	input[type="submit"]:hover {
+	  cursor: pointer;
+	  background-color: #61a067;
+	}
+
+	.result {
+	  padding: 20px;
+	  color: black;
+	  text-align: center;
+	  width: 50vw;
+	  margin: 0 auto;
+	  font-family: 'Fjalla One', sans-serif;
+	  font-size: 20px;
+	  margin-top: 50px;
+	}
+</style>
+</head>
+<body>
+	<div>
+	  <h1>Type any number to display prime numbers</h1>
+	</div>
+	<div>
+	  <input type="text" id="user-number">
+	  <input type="submit" id="send" value="submit">
+	</div>
+	<div class="result" id="primes"></div>
+	<script>
+var sendBtn = document.getElementById("send");
+var primeNumbers = [];
+var isValidate = false;
+document.getElementById('primes').textContent = "";
+
+// generate prime numbers
+sendBtn.addEventListener("click", function() {
+  var num = document.getElementById("user-number").value;
+  console.log("click");
+
+  function primeNumbers() {
+     if ( num == null ||  num == ""){
+       isValidate = false;
+document.getElementById('primes').textContent = "Type anything! ";      
+    } else if (num <= 2) {   
+      isValidate = false;
+  document.getElementById('primes').textContent = "Oh no! You need to pick higher number to make me work!";
+    } else if (num > 1000) {  
+      isValidate = false; document.getElementById('primes').textContent = "Please, pick something smaller.";
+    } else if ((num % 1) != 0 || num == NaN ) { isValidate = false; document.getElementById('primes').textContent = "Snap! It looks like you didn't type a number.";
+    } else {
+      isValidate = true;
+    }
+  };
+
+  primeNumbers();
+
+  //checking if number is prime
+  function isPrime(x) {
+    
+    var primeNum = true;
+    for (var i = 2; i <= Math.sqrt(x); i++) {
+      if (x % i === 0) {
+        primeNum = false;
+      }
+    }
+    if (primeNum) {
+      primeNumbers.push(x);
+    }
+  };
+
+  primeNumbers = [];
+  for (var j = 3; j <= num; j++) {
+    isPrime(j);
+  }
+  //console.log(primeNumbers);
+
+  function displayPrimes() {
+    if (isValidate == true) {
+
+      var finalNumbers = primeNumbers.join(', ');
+      document.getElementById('primes').textContent = "Prime numbers smaller than your number: " + finalNumbers;
+    }
+  };
+  displayPrimes();
+});
+</script>

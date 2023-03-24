@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Fibonacci Sequence</title>
+	<style>
+		html {
+			text-align: center;
+			margin: 30px;
+			background-color: black;
+			font-size: 18px;
+			font-family: 'Source Sans Pro', sans-serif;
+			color: white;
+			letter-spacing: 2px;
+		}
+
+		h1 {
+			font-family: 'Nanum Brush Script', cursive;
+			font-size: 4rem;
+		}
+
+		#output {
+			text-align: center;
+			max-width: 600px;
+			margin: auto;
+		}
+
+		input {
+			border: none;
+			text-align: center;
+			color: white;
+			background-blend-mode: lighten;;
+			background-color: #242424;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Fibonacci Sequence</h1>
+		<div id="output"></div>
+		<p>Enter a number to change the max value for the Fibonacci Sequence:</p>
+	 	<input type="text" value="1000" oninput="refresh()"/>
+		<div id='bonus'><span onclick="showBonus()"><small>•bonus•</small></span></div>
+	</div>
+
+	<script>
+		// returns an array of Fibonacci values up to max value sent to Fx:
+		function fibonacci(fMax) {
+			var F = 1, Fp=0,Fn, fib=[];
+			   while (Fp <= fMax){
+					fib.push(Fp);
+					Fn = F +Fp; Fp = F; F = Fn;
+				}
+			return fib;
+		}
+		// -- END FIBONACCI Fx--
+
+		//grab the code output, and display in the on the page...
+		var input = document.querySelector('input');
+		var output = document.querySelector('#output');
+		output.textContent = fibonacci(input.value).join(", ");
+
+		function refresh(){
+			output.textContent = fibonacci(input.value).join(", ");
+			sumOdds();
+		}
+
+
+		// - - BONUS code - -
+		var sums;
+		var bonus = document.querySelector('#bonus');
+		function sumOdds(){
+			var fibs = output.textContent;
+			fibs = fibs.split(', ');
+			sums = fibs.map(x=>x*1).filter(x => x%2 !== 0).reduce((x,y)=>{return x+y;});
+			if (show){
+				bonus.innerHTML = bonusMsg + sums.toLocaleString() + "</p>";
+			}
+		}
+		var bonusMsg = "<p>The sum of the ODD Fibonacci numbers is: ";
+		var show = false;
+function showBonus(){
+	show=true;
+	sumOdds();
+	bonus.innerHTML = bonusMsg + sums.toLocaleString() + "</p>";
+} 
+</script>
+</body>
