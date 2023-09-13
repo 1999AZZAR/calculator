@@ -1,0 +1,46 @@
+def convert_temperature(temperature, scale):
+  """Converts temperature from one scale to another.
+
+  Args:
+    temperature: The temperature value.
+    scale: The scale of the temperature value. Can be 1 (Celsius), 2 (Fahrenheit), or 3 (Kelvin).
+
+  Returns:
+    The converted temperature value.
+  """
+
+  if scale == 1:
+    kelvin = temperature + 273.15
+    fahrenheit = (temperature * 1.8) + 32
+  elif scale == 2:
+    kelvin = (temperature - 32) * 5 / 9 + 273.15
+    celsius = (temperature - 32) * 5 / 9
+  elif scale == 3:
+    celsius = temperature - 273.15
+    fahrenheit = (temperature - 273.15) * 9 / 5 + 32
+  else:
+    raise ValueError("Invalid scale: " + scale)
+
+  return kelvin, fahrenheit
+
+
+def main():
+  """The main function."""
+
+  temperature = float(input("Enter the temperature: "))
+
+  print("Select the scale of the temperature:")
+  print("1. Celsius")
+  print("2. Fahrenheit")
+  print("3. Kelvin")
+
+  scale = int(input("Enter your choice (1, 2, or 3): "))
+
+  kelvin, fahrenheit = convert_temperature(temperature, scale)
+
+  print("Temperature in Kelvin:", kelvin)
+  print("Temperature in Fahrenheit:", fahrenheit)
+
+
+if __name__ == "__main__":
+  main()
